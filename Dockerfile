@@ -10,13 +10,16 @@ RUN apk add --no-cache \
     jpeg-dev \
     zlib-dev
 
+# Update pip to the latest version
+RUN pip install --no-cache-dir --upgrade pip
+
 # Copy everything in the current directory to the image
 COPY . .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir \
     numpy \
-    opencv-python \
+    opencv-python-headless \
     keras \
     Flask
 
@@ -25,4 +28,5 @@ EXPOSE 5000
 
 # Start the Flask application
 CMD ["python", "app.py"]
+
 
