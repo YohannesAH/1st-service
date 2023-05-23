@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Handwritten Digit Recognition</title>
+    </head>
+    <body>
+        <h1>Handwritten Digit Recognition</h1>
+        <form method="post" action="{{ url_for('predict_digit') }}" enctype="multipart/form-data">
+            <input type="file" name="image">
+            <input type="submit" value="Upload">
+        </form>
+        {% if file %}
+            <p>Uploaded image:</p>
+            <img src="{{ url_for('uploaded_file', filename=file.filename) }}" alt="uploaded image">
+        {% endif %}
+        {% if digit is not none %}
+            <p>Predicted digit:</p>
+            <h2>{{ digit }}</h2>
+        {% endif %}
+    </body>
+</html>
