@@ -1,35 +1,23 @@
-
-# Use a minimal base image
-FROM python:3.9-alpine
+# Base image
+FROM python:3.8-alpine3.14
 
 # Set the working directory
 WORKDIR /app
 
-# Install system dependencies and build tools
-RUN apk add --no-cache \
-    build-base \
-    cmake \
-    jpeg-dev \
-    zlib-dev
+# Install system dependencies
+RUN apk --no-cache add gcc musl-dev
 
-# Update pip to the latest version
-RUN pip install --no-cache-dir --upgrade pip
+# Copy the requirements file
+COPY requirements.txt .
 
-# Install opencv-python-headless with specific flags
-RUN pip install --no-cache-dir --force-reinstall --no-binary :all: opencv-python-headless
+# Install the required packages
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy everything in the current directory to the image
+# Copy the application code
 COPY . .
 
-# Install Python dependencies
-RUN pip install --no-cache-dir \
-    numpy \
-    keras \
-    Flask
-
-# Expose the port
+# Expose the necessary port
 EXPOSE 5000
 
-# Start the Flask application
+# Run the application
 CMD ["python", "app.py"]
-
