@@ -1,24 +1,25 @@
-# Base image
-FROM python:3.8-alpine3.14
+# Use the lightweight Alpine base image
+FROM alpine:3.14
 
-# Set the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies
-RUN apk --no-cache add gcc musl-dev build-base python3-dev py3-numpy py3-numpy-f2py py3-scipy
+# Install Python and necessary dependencies
+RUN apk add --no-cache python3 py3-pip
 
-# Copy the requirements file
+# Copy the requirements file to the container
 COPY requirements.txt .
 
-# Install the required packages
-RUN pip install --no-cache-dir -r requirements.txt
+# Install the Python dependencies
+RUN apk add --no-cache --virtual .build-deps gcc musl-dev \
+    && python3 -m pip install --no-cache-dir -r requirements.txt \
+    && apk del .build-deps
 
-# Copy the application code
+# Copy the necessary files to the container
 COPY . .
 
-# Expose the necessary port
+# Expose the port on which the Flask app will run
 EXPOSE 5000
 
-# Run the application
-CMD ["python", "app.py"]
-
+# Start the Flask app
+CMD ["python3", "app.py"]
