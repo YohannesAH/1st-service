@@ -5,7 +5,7 @@ FROM python:3.8-alpine3.14
 WORKDIR /app
 
 # Install system dependencies
-RUN apk --no-cache add gcc musl-dev
+RUN apk --no-cache add gcc musl-dev build-base python3-dev py3-numpy py3-numpy-f2py py3-scipy
 
 # Copy the requirements file
 COPY requirements.txt .
@@ -21,3 +21,4 @@ EXPOSE 5000
 
 # Run the application
 CMD ["python", "app.py"]
+
