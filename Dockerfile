@@ -1,14 +1,8 @@
-# Use Alpine as the base image
-FROM alpine:3.14
+# Use frolvlad/alpine-python3 as the base image
+FROM frolvlad/alpine-python3
 
 # Set the working directory
 WORKDIR /app
-
-# Install system dependencies
-RUN apk add --no-cache python3-dev py3-pip build-base libffi-dev openssl-dev
-
-# Install OpenCV 3.4.13
-RUN apk add --no-cache opencv=3.4.13
 
 # Install Python dependencies
 COPY requirements.txt .
@@ -22,3 +16,4 @@ EXPOSE 5000
 
 # Start the Flask application
 CMD ["python3", "app.py"]
+
