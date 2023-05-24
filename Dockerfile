@@ -5,11 +5,10 @@ FROM alpine:3.14
 WORKDIR /app
 
 # Install system dependencies
-RUN apk add --no-cache python3-dev py3-pip build-base libffi-dev openssl-dev \
-    && pip3 install --no-cache-dir --upgrade pip
+RUN apk add --no-cache python3-dev py3-pip build-base libffi-dev openssl-dev
 
-# Install pre-built OpenCV packages
-RUN apk add --no-cache opencv
+# Install OpenCV 3.4.13
+RUN apk add --no-cache opencv=3.4.13
 
 # Install Python dependencies
 COPY requirements.txt .
@@ -23,4 +22,3 @@ EXPOSE 5000
 
 # Start the Flask application
 CMD ["python3", "app.py"]
-
