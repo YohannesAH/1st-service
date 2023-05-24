@@ -1,4 +1,4 @@
-flask
-numpy
-opencv-python
-keras
+numpy==1.19.5
+opencv-python-headless==4.5.3.56
+keras==2.6.0
+flask==2.0.1
