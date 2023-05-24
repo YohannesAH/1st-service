@@ -15,7 +15,7 @@ RUN wget -qO /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-la
     export PATH="/usr/local/miniconda/bin:$PATH" && \
     conda update -n base -c defaults conda && \
     conda create -y --name myenv python=3.8 && \
-    conda activate myenv && \
+    source activate myenv && \
     conda install -y -c conda-forge opencv
 
 # Copy the requirements file and install Python dependencies
@@ -31,3 +31,4 @@ EXPOSE 5000
 
 # Start the Flask application
 CMD ["python", "app.py"]
+
