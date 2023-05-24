@@ -1,24 +1,20 @@
-# Use Alpine as the base image
-FROM alpine:3.14
+# Use the official Python image as the base image
+FROM python:3.9-slim
 
-# Set the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies
-RUN apk add --no-cache python3-dev py3-pip build-base libffi-dev openssl-dev \
-    && pip3 install --no-cache-dir --upgrade pip
-
-RUN conda install opencv
-
-# Install Python dependencies
+# Copy the requirements file to the working directory
 COPY requirements.txt .
-RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Copy the Flask app files
+# Install the Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the Flask app files to the working directory
 COPY . .
 
-# Expose the port
+# Expose port 5000 for the Flask app
 EXPOSE 5000
 
-# Start the Flask application
-CMD ["python3", "app.py"]
+# Start the Flask app when the container launches
+CMD ["python", "app.py"]
