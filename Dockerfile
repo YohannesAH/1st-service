@@ -1,34 +1,26 @@
+# Use Alpine as the base image
+FROM alpine:3.14
 
-# Use an official Python runtime as the base image
-FROM python:3.8-alpine
-
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Install system dependencies for OpenCV
-RUN apk --no-cache add build-base jpeg-dev zlib-dev libwebp-dev
+# Install system dependencies
+RUN apk add --no-cache python3-dev py3-pip build-base libffi-dev openssl-dev \
+    && pip3 install --no-cache-dir --upgrade pip
 
-# Install Miniconda and add it to the system PATH
-RUN wget -qO /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
-    /bin/sh /tmp/miniconda.sh -bfp /usr/local/miniconda && \
-    rm -rf /tmp/miniconda.sh && \
-    export PATH="/usr/local/miniconda/bin:$PATH" && \
-    conda update -n base -c defaults conda && \
-    conda create -y --name myenv python=3.8 && \
-    source activate myenv && \
-    conda install -y -c conda-forge opencv
+# Install pre-built OpenCV packages
+RUN apk add --no-cache opencv
 
-# Copy the requirements file and install Python dependencies
+# Install Python dependencies
 COPY requirements.txt .
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Copy the application code
+# Copy the Flask app files
 COPY . .
 
-# Expose the port that the Flask app will listen on
+# Expose the port
 EXPOSE 5000
 
 # Start the Flask application
-CMD ["python", "app.py"]
+CMD ["python3", "app.py"]
 
