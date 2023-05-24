@@ -10,9 +10,9 @@ RUN apk --no-cache add build-base jpeg-dev zlib-dev libwebp-dev
 
 # Install Miniconda and add it to the system PATH
 RUN wget -qO /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
-    /bin/sh /tmp/miniconda.sh -bfp /usr/local && \
+    /bin/sh /tmp/miniconda.sh -bfp /usr/local/miniconda && \
     rm -rf /tmp/miniconda.sh && \
-    export PATH="/usr/local/bin:$PATH" && \
+    export PATH="/usr/local/miniconda/bin:$PATH" && \
     conda update -n base -c defaults conda && \
     conda create -y --name myenv python=3.8 && \
     conda activate myenv && \
