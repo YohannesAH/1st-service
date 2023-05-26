@@ -16,7 +16,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Install TensorFlow
-RUN pip install tflite-runtime
+RUN pip install tensorflow
 
 # Copy the Flask app files to the working directory
 COPY . .
@@ -26,3 +26,4 @@ EXPOSE 5000
 
 # Start the Flask app when the container launches
 CMD ["python", "app.py"]
+
