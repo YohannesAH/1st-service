@@ -15,8 +15,8 @@ COPY requirements.txt .
 # Install the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install TensorFlow Lite
-RUN pip install tflite-runtime
+# Install TensorFlow
+RUN pip install tensorflow
 
 # Copy the Flask app files to the working directory
 COPY . .
