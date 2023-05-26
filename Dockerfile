@@ -1,5 +1,5 @@
-# Set the base image to Python 3.9 slim
-FROM python:3.9-slim 
+# Use the official Python image as the base image
+FROM python:3.9-slim
 
 # Set the working directory in the container
 WORKDIR /app
@@ -16,7 +16,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Install TensorFlow Lite
-RUN pip install --no-cache-dir tflite-runtime
+RUN pip install tflite-runtime
 
 # Copy the Flask app files to the working directory
 COPY . .
@@ -26,3 +26,4 @@ EXPOSE 5000
 
 # Start the Flask app when the container launches
 CMD ["python", "app.py"]
+
