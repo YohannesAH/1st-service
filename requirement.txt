@@ -2,3 +2,4 @@ numpy
 keras
 flask
 opencv-python
+requests
