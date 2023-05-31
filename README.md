@@ -1,1 +1,1 @@
-# This is digit recognition system the first microservice
+# Digit recognition system the first system
