@@ -8,6 +8,12 @@ app = Flask(__name__)
 
 model = models.load_model('mymodel')
 
+@app.route('/get_input', methods=['GET'])
+def get_input():
+    # Provide the input data or any other information you want to expose
+    input_data = {'data': 'Sample input data'}
+    return input_data
+
 @app.route('/predict', methods=['POST'])
 def predict_digit():
     # Read the image using OpenCV
